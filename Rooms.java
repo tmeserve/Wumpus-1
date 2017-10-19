@@ -74,13 +74,36 @@ public class Rooms
 		
 		room = rooms[0];
 		
-		System.out.println(adrooms[room - 1] + " " + adrooms[room] + " " + adrooms[room + 1]);
+		//System.out.println(adrooms[room - 1] + " " + adrooms[room] + " " + adrooms[room + 1]);
 	}
 	
 	public int getArrows()
 	{
 		arrows = arrows - 1;
 		return arrows;
+	}
+	
+	public void play()
+	{
+		Scanner in = new Scanner(System.in);
+		String inn;
+		System.out.println("You are in room " + room + ".");
+		System.out.println("You have " + arrows + " arrows left.");
+		System.out.println(getDesc());
+		System.out.println("There are tunnels to rooms " + adrooms[room - 1] + ", " + adrooms[room] + ", and "
+				+ adrooms[room + 1] + ".");
+		System.out.println("You hear a faint clicking noise.");
+		System.out.println("Move or Shoot?");
+		inn = in.nextLine();
+		if (inn.equalsIgnoreCase("m") || inn.equalsIgnoreCase("move"))
+		{
+			System.out.println("Which room?");
+			inn = in.nextLine();
+		}
+		else if (inn.equalsIgnoreCase("s") || inn.equalsIgnoreCase("shoot"))
+		{
+			
+		}
 	}
 	
 	public String getAdjRooms()
@@ -90,9 +113,9 @@ public class Rooms
 	
 	public int getRoom()
 	{
-		if(rooms[0] == 1)
+		//if(rooms[0] == 1)
 		{
-			System.out.println("You are in room 1");
+			//System.out.println("You are in room 1");
 			
 		}
 		return room;
@@ -142,7 +165,7 @@ public class Rooms
 		
 		if (wumpus == 1)
 		{
-			getWumpus();
+			getWumpusr();
 		}
 	}
 	
@@ -152,7 +175,6 @@ public class Rooms
 		if (room == wumpus)
 		{
 			System.out.println("You were eaten by the Wumpus.");
-			//return wumpus;
 		}
 		else if ((wumpus == adrooms[room - 1]) || (wumpus == adrooms[room]) || (wumpus == adrooms[room + 1]))
 		{
