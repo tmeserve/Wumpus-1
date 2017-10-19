@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.lang.NumberFormatException;
 
 public class Rooms
 {
@@ -11,15 +12,19 @@ public class Rooms
 	//private boolean bats;
 	private int room;
 	private String description;
-	private boolean spiders;
-	private boolean wumpus;
-	private boolean pit;
+	private int spiders;
+	private int spiders2;
+	private int wumpus;
+	private int pit;
+	private int pit2;
 	private int n;
 	int[] rooms;
 	String[] desc;
 	String[] adjrooms;
 	
-	String[] ajrooms = adjrooms;
+	String output;
+	String[] strarr;
+	int[] adrooms;
 	
 	public Rooms() throws FileNotFoundException
 	{
@@ -41,30 +46,55 @@ public class Rooms
 			//System.out.println(desc[i]);
 		}
 		
-		//int[] adrooms = Arrays.stream(adjrooms).mapToInt(Integer::parseInt).toArray();
+		output = "";
+		for(String str: adjrooms)
+		{
+			output = output + str;
+		}
 		
-		//for (int i = 0; i < adjrooms.length; i++)
-		//{
+		output = output.replaceAll("\\s+",",");
+		output = output.replaceFirst(",", "");
+		
+		strarr = output.split(",");
+		
+		adrooms = new int[strarr.length];
+		
+		try
+		{
+			for (int i = 0; i < strarr.length; i++)
+			{
+				String str = strarr[i];
+				adrooms[i] = Integer.parseInt(str);
+			}
+		}
+		catch (NumberFormatException e)
+		{
 			
-		//}
+		}
 		
 		room = rooms[0];
-		//System.out.println("The adjacent rooms are" + adjrooms[0]);
+		
+		System.out.println(adrooms[room - 1] + " " + adrooms[room] + " " + adrooms[room + 1]);
 	}
 	
 	public int getArrows()
 	{
+		arrows = arrows - 1;
 		return arrows;
 	}
 	
 	public String getAdjRooms()
 	{
-		return adjrooms[room - 1];
+		return adrooms[room - 1] + " " + adrooms[room] + " " + adrooms[room + 1];
 	}
 	
 	public int getRoom()
 	{
-		
+		if(rooms[0] == 1)
+		{
+			System.out.println("You are in room 1");
+			
+		}
 		return room;
 	}
 	
@@ -74,37 +104,91 @@ public class Rooms
 		return description;
 	}
 	
-	public boolean getSpiders()
+	public void getSpiders()
 	{
-		return spiders;
+		spiders = (int) (1 + n*Math.random());
+		spiders2 = (int) ( 1 + n*Math.random());
+		
+		if (spiders == 1 || spiders2 == 1)
+		{
+			getSpiders();
+		}
+	}
+	
+	public void getSpider()
+	{
+		if (room == spiders)
+		{
+			System.out.println("You were killed by the spiders!");
+		}
+		else if ((spiders == adrooms[room - 1]) || (spiders == adrooms[room]) || (spiders == adrooms[room + 1]))
+		{
+			
+		}
+		
+		if (room == spiders2)
+		{
+			System.out.println("You were eaten by the spiders!");
+		}
+		else if ((spiders2 == adrooms[room - 1]) || (spiders2 == adrooms[room]) || (spiders2 == adrooms[room + 1]))
+		{
+			
+		}
+	}
+	
+	public void getWumpusr()
+	{
+		wumpus = (int) (1 + n*Math.random());
+		
+		if (wumpus == 1)
+		{
+			getWumpus();
+		}
 	}
 	
 	public void getWumpus()
 	{
-		//int ranro = (int) (1 + n*Math.random());
-		int ranro = 2;
-		String raro = Integer.toString(ranro);
-		if (ranro == 1)
+		
+		if (room == wumpus)
 		{
-			getWumpus();
+			System.out.println("You were eaten by the Wumpus.");
+			//return wumpus;
 		}
-		for (int i = 0; i < n; i++)
+		else if ((wumpus == adrooms[room - 1]) || (wumpus == adrooms[room]) || (wumpus == adrooms[room + 1]))
 		{
-			if (room == ranro)
-			{
-				System.out.println("You were eaten by the Wumpus.");
-				//return wumpus;
-			}
-			else if (raro == adjrooms[room - 1])
-			{
-				System.out.println("You smeel a nasty wumpus.");
-			}
+			System.out.println("You smell a nasty wumpus.");
 		}
 	}
 	
-	public boolean getPit()
+	public void getPits()
 	{
-		return pit;
+		pit = (int) (1 + n*Math.random());
+		pit2 = (int) ( 1 + n*Math.random());
+		
+		if (pit == 1 || pit2 == 1)
+		{
+			getPits();
+		}
 	}
 	
+	public void getPit()
+	{
+		if (room == pit)
+		{
+			System.out.println("You were killed by the spiders!");
+		}
+		else if ((pit == adrooms[room - 1]) || (pit == adrooms[room]) || (pit == adrooms[room + 1]))
+		{
+			
+		}
+		
+		if (room == pit2)
+		{
+			System.out.println("You fell into a pit");
+		}
+		else if ((pit2 == adrooms[room - 1]) || (pit2 == adrooms[room]) || (pit2 == adrooms[room + 1]))
+		{
+			
+		}
+	}
 }
