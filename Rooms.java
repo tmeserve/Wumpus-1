@@ -26,7 +26,11 @@ public class Rooms
 	String[] strarr;
 	int[] adrooms;
 	
-
+	int wumpp;
+	int spid;
+	int spid2;
+	int pi;
+	int pi2;
 	
 	public Rooms() throws FileNotFoundException
 	{
@@ -80,10 +84,26 @@ public class Rooms
 	}
 	
 	public void play()
-	{
-		getSpiders();
-		getWumpusr();
-		getPits();
+	{	
+		getWumpp();
+		getSpid();
+		getPi();
+		
+		while ((spid == pi) || (spid == spid2) || (spid2 == pi2) || (spid == pi2)
+				|| (spid2 == pi) || (spid == wumpp) ||(spid2 == wumpp) || (pi2 == wumpp)
+				|| (pi == wumpp) || (spid == 1) || (spid2 == 1) || (pi == 1) ||(pi2 == 1)
+				|| (wumpp == 1) || (pi == pi2))
+		{
+			getSpid();
+			getPi();
+			getWumpp();
+		}
+		
+		System.out.println(spid);
+		System.out.println(spid2);
+		System.out.println(pi);
+		System.out.println(pi2);
+		System.out.println(wumpp);
 		
 		Scanner in = new Scanner(System.in);
 		String inn;
@@ -242,35 +262,20 @@ public class Rooms
 		return description;
 	}
 	
-	public void getSpiders()
+	public void getSpid()
 	{
-		spiders = (int) (1 + n*Math.random());
-		spiders2 = (int) ( 1 + n*Math.random());
-		
-		if (spiders == 1 || spiders2 == 1)
-		{
-			getSpiders();
-		}
+		spid = (int) (1 + rooms.length*Math.random());
+		spid2 = (int) (1 + rooms.length*Math.random());
 	}
 	
-	public void getWumpusr()
+	public void getPi()
 	{
-		wumpus = (int) (1 + n*Math.random());
-		
-		if (wumpus == 1)
-		{
-			getWumpusr();
-		}
+		pi = (int) (1 + rooms.length*Math.random());
+		pi2 = (int) (1 + rooms.length*Math.random());
 	}
 	
-	public void getPits()
+	public void getWumpp()
 	{
-		pit = (int) (1 + n*Math.random());
-		pit2 = (int) ( 1 + n*Math.random());
-		
-		if (pit == 1 || pit2 == 1)
-		{
-			getPits();
-		}
+		wumpp = (int) (1 + rooms.length*Math.random());
 	}
 }
