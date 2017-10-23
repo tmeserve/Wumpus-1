@@ -2,47 +2,48 @@ package theWumpus;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 import java.lang.NumberFormatException;
 
 public class Rooms
 {
 	private int arrows = 3;
-	//private boolean bats;
 	private int room;
 	private String description;
-	private int spiders;
-	private int spiders2;
-	private int wumpus;
-	private int pit;
-	private int pit2;
-	private int n;
-	int[] rooms;
-	String[] desc;
-	String[] adjrooms;
+	private int r;
+	private int[] rooms;
+	private String[] desc;
+	private String[] adjrooms;
 	
-	String output;
-	String[] strarr;
-	int[] adrooms;
+	private String output;
+	private String[] strarr;
+	private int[] adrooms;
 	
-	int wumpp;
-	int spid;
-	int spid2;
-	int pi;
-	int pi2;
+	private int wumpp;
+	private int spid;
+	private int spid2;
+	private int pi;
+	private int pi2;
+	private int supp;
+	private int a;
+	private int b;
+	private int c;
 	
 	public Rooms() throws FileNotFoundException
 	{
 		Scanner cave = new Scanner(new FileReader("Wumpus.txt"));
 		
-		n = cave.nextInt();
+		r = cave.nextInt();
 		
-		rooms = new int[n];
-		desc = new String[n];
-		adjrooms = new String[n];
+		//System.out.println(r);
 		
-		for (int i = 0; i < n; i++)
+		//System.out.println(r + " " + s + " " + p);
+		
+		rooms = new int[r];
+		desc = new String[r];
+		adjrooms = new String[r];
+		
+		for (int i = 0; i < r; i++)
 		{
 			rooms[i] = cave.nextInt();
 			//System.out.println(rooms[i]);
@@ -88,34 +89,43 @@ public class Rooms
 		getWumpp();
 		getSpid();
 		getPi();
+		getSupp();
+		
+		int j;
+		int l;
+		
+		System.out.println("Test");
 		
 		while ((spid == pi) || (spid == spid2) || (spid2 == pi2) || (spid == pi2)
 				|| (spid2 == pi) || (spid == wumpp) ||(spid2 == wumpp) || (pi2 == wumpp)
 				|| (pi == wumpp) || (spid == 1) || (spid2 == 1) || (pi == 1) ||(pi2 == 1)
-				|| (wumpp == 1) || (pi == pi2))
-		{
-			getSpid();
-			getPi();
-			getWumpp();
-		}
+				|| (wumpp == 1) || (pi == pi2) || (supp == spid2) || (supp == spid)
+				|| (supp == pi2) || (supp == pi) || (supp == wumpp))
+			{
+				getSpid();
+				getPi();
+				getWumpp();
+				getSupp();
+			}
 		
-		System.out.println(spid);
-		System.out.println(spid2);
-		System.out.println(pi);
-		System.out.println(pi2);
-		System.out.println(wumpp);
+		//System.out.println(spid);
+		//System.out.println(spid2);
+		//System.out.println(pi);
+		//System.out.println(pi2);
+		System.out.println(wumpp + " wump");
+		System.out.println(supp + " supp");
+		
 		
 		Scanner in = new Scanner(System.in);
 		String inn;
-		int mo;
 		
-		int a = adrooms[room - 1];
-		int b = adrooms[room];
-		int c = adrooms[room + 1];
+		a = adrooms[room - 1];
+		b = adrooms[room];
+		c = adrooms[room + 1];
 		
 		boolean move = false;
 		
-		while (!move)
+		while (move)
 		{
 			System.out.println("You are in room " + room + ".");
 			System.out.println("You have " + arrows + " arrows left.");
@@ -123,6 +133,7 @@ public class Rooms
 			System.out.println("There are tunnels to rooms " + getAdjRooms() + ".");
 			System.out.println("Move or Shoot?");
 			inn = in.nextLine();
+			
 			if (inn.equalsIgnoreCase("m") || inn.equalsIgnoreCase("move"))
 			{
 				System.out.println("Which room?");
@@ -131,23 +142,23 @@ public class Rooms
 				if (Integer.parseInt(inn) == a)
 				{
 					room = a;
-					if (room == spiders || room == spiders2)
+					if (room == spid || room == spid2)
 					{
 						System.out.println("You were killed by the spiders!");
 						move = true;
 					}
 					
-					else if (room == wumpus)
+					else if (room == wumpp)
 					{
 						System.out.println("You were eaten by the Wumpus.");
 						move = true;
 					}
-					else if (room == pit || room == pit2)
+					else if (room == pi || room == pi2)
 					{
 						System.out.println("You fell into a pit.");
 						move = true;
 					}
-					else if ((wumpus == adrooms[room - 1]) || (wumpus == adrooms[room]) || (wumpus == adrooms[room + 1]))
+					else if ((wumpp == adrooms[room - 1]) || (wumpp == adrooms[room]) || (wumpp == adrooms[room + 1]))
 					{
 						System.out.println("You smell a nasty wumpus.");
 					}
@@ -155,23 +166,23 @@ public class Rooms
 				else if (Integer.parseInt(inn) == b)
 				{
 					room = b;
-					if (room == spiders || room == spiders2)
+					if (room == spid || room == spid2)
 					{
 						System.out.println("You were killed by the spiders!");
 						move = true;
 					}
 					
-					else if (room == wumpus)
+					else if (room == wumpp)
 					{
 						System.out.println("You were eaten by the Wumpus.");
 						move = true;
 					}
-					else if (room == pit || room == pit2)
+					else if (room == pi || room == pi2)
 					{
 						System.out.println("You fell into a pit.");
 						move = true;
 					}
-					else if ((wumpus == adrooms[room - 1]) || (wumpus == adrooms[room]) || (wumpus == adrooms[room + 1]))
+					else if ((wumpp == adrooms[room - 1]) || (wumpp == adrooms[room]) || (wumpp == adrooms[room + 1]))
 					{
 						System.out.println("You smell a nasty wumpus.");
 					}
@@ -179,23 +190,23 @@ public class Rooms
 				else if (Integer.parseInt(inn) == c)
 				{
 					room = c;
-					if (room == spiders || room == spiders2)
+					if (room == spid || room == spid2)
 					{
 						System.out.println("You were killed by the spiders!");
 						move = true;
 					}
 					
-					else if (room == wumpus)
+					else if (room == wumpp)
 					{
 						System.out.println("You were eaten by the Wumpus.");
 						move = true;
 					}
-					else if (room == pit || room == pit2)
+					else if (room == pi || room == pi2)
 					{
 						System.out.println("You fell into a pit.");
 						move = true;
 					}
-					else if ((wumpus == adrooms[room - 1]) || (wumpus == adrooms[room]) || (wumpus == adrooms[room + 1]))
+					else if ((wumpp == adrooms[room - 1]) || (wumpp == adrooms[room]) || (wumpp == adrooms[room + 1]))
 					{
 						System.out.println("You smell a nasty wumpus.");
 					}
@@ -213,7 +224,7 @@ public class Rooms
 				if (Integer.parseInt(inn) == a)
 				{
 					arrows = arrows - 1;
-					if (Integer.parseInt(inn) == wumpus)
+					if (Integer.parseInt(inn) == wumpp)
 					{
 						System.out.println("Your arrow goes down the tunnel and hits its mark.");
 						System.out.println("You shot the wumpus!");
@@ -224,7 +235,7 @@ public class Rooms
 				else if (Integer.parseInt(inn) == b)
 				{
 					arrows = arrows - 1;
-					if (Integer.parseInt(inn) == wumpus)
+					if (Integer.parseInt(inn) == wumpp)
 					{
 						System.out.println("Your arrow goes down the tunnel and hits its mark.");
 						System.out.println("You shot the wumpus!");
@@ -235,7 +246,7 @@ public class Rooms
 				else if (Integer.parseInt(inn) == c)
 				{
 					arrows = arrows - 1;
-					if (Integer.parseInt(inn) == wumpus)
+					if (Integer.parseInt(inn) == wumpp)
 					{
 						System.out.println("Your arrow goes down the tunnel and hits its mark.");
 						System.out.println("You shot the wumpus!");
@@ -262,20 +273,27 @@ public class Rooms
 		return description;
 	}
 	
+	//int calc = (int) (1 + rooms.length*Math.random());
+	
 	public void getSpid()
 	{
-		spid = (int) (1 + rooms.length*Math.random());
-		spid2 = (int) (1 + rooms.length*Math.random());
+		spid = (int) (1 + r*Math.random());
+		spid2 = (int) ( 1 + r*Math.random());
 	}
 	
 	public void getPi()
 	{
-		pi = (int) (1 + rooms.length*Math.random());
-		pi2 = (int) (1 + rooms.length*Math.random());
+		pi = (int) (1 + r*Math.random());
+		pi2 = (int) ( 1 + r*Math.random());
 	}
 	
 	public void getWumpp()
 	{
 		wumpp = (int) (1 + rooms.length*Math.random());
+	}
+	
+	public void getSupp()
+	{
+		supp = (int) (1 + rooms.length*Math.random());
 	}
 }
