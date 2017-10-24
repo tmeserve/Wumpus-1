@@ -1,6 +1,7 @@
 package theWumpus;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class Hunt
 {
@@ -9,8 +10,6 @@ public class Hunt
 	{
 		Rooms hi = new Rooms();
 		
-		System.out.println(hi.getRoom());
-		System.out.println(hi.getDesc());
-		hi.getWumpus();
+		hi.play();
 	}
 }
